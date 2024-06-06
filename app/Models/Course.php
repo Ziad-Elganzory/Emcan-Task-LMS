@@ -25,4 +25,9 @@ class Course extends Model
     {
         return $this->hasMany(Enrollment::class);
     }
+
+    public function isEnrolled($userId): bool
+    {
+        return $this->enrollments()->where('user_id', $userId)->exists();
+    }
 }

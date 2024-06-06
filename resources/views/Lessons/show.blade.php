@@ -8,11 +8,13 @@
               Lesson Info
             </div>
             <div class="card-body mt-4">
+              <h4 class="card-title">Course Title: {{$course->title}}</h5>
+              <p class="card-text">Course Description: {{$course->description}}</p>
+              <br>
               <h5 class="card-title">Lesson Title: {{$lesson->title}}</h5>
               <p class="card-text">Lesson Content: {{$lesson->content}}</p>
-              <br>
-              <h5 class="card-title">Course Title: {{$course->title}}</h5>
-              <p class="card-text">Course Description: {{$course->description}}</p>
+
+
               <div class="text-center">
                 <a href="#">
                   <button type="button" class="btn btn-primary btn-lg">Watch Lesson</button>

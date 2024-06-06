@@ -15,17 +15,22 @@ class EnrollmentController extends Controller
         return view('enrollments.index', ['enrollments' => $enrollments]);
     }
 
-    public function store(Course $course)
+    public function store(Course $id)
     {
         if (Auth::check()) {
             Enrollment::create([
                 'user_id' => Auth::id(),
-                'course_id' => $course->id,
+                'course_id' => $id->id,
             ]);
 
             return redirect()->route('user.courses')->with('success', 'You have successfully enrolled in the course.');
         } else {
             return redirect()->route('login')->with('error', 'You need to be logged in to enroll in a course.');
         }
+    }
+
+    public function destroy(Enrollment $id){
+        $id->delete();
+        return to_route('user.courses');
     }
 }

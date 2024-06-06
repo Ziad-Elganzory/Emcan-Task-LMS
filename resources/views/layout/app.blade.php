@@ -11,7 +11,7 @@
     {{-- NavBar --}}
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Emcan LMS</a>
+          <a class="navbar-brand" href="#">LMS</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -24,10 +24,44 @@
                 <a class="nav-link active" aria-current="page" href="{{route('user.courses')}}">Enrollments</a>
               </li>
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" method="GET" action="{{ route('courses.search') }}">
+              <input class="form-control me-2" type="search" name="query" placeholder="Search by ID, Name, or Description" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+          </form>
+          @if(Auth::check())
+          <div class="btn-group mx-4">
+            <button class="btn btn-outlined-secondary btn-md dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ Auth::user()->name }}
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <x-dropdown-link :href="route('profile.edit')" style="text-decoration: none ; color:black">
+                  {{ __('Profile') }}
+              </x-dropdown-link>
+              </li>
+              <li>
+                <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+
+                  <x-dropdown-link :href="route('logout')" style="text-decoration: none ; color:black"
+                          onclick="event.preventDefault();
+                                      this.closest('form').submit();">
+                      {{ __('Log Out') }}
+                  </x-dropdown-link>
+              </form>
+              </li>
+            </ul>
+          </div>
+          @else
+            <div class="mx-3">
+              <a href="{{route('login')}}">             
+                <button type="button" class="btn btn-outline-primary me-2">Login</button>
+              </a>
+              <a href="{{route('register')}}">
+                <button type="button" class="btn btn-outline-primary">Register</button>
+              </a>
+            </div>
+          @endif
           </div>
         </div>
       </nav>

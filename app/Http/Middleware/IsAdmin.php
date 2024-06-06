@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class IsAdmin
@@ -15,8 +16,9 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() || !Auth::user()->is_admin) {
-            return redirect()->route('course.index')->with('error', 'You are not authorized to access this page.');
+
+        if (!Auth::check() || !(Auth::user()->role === 'admin')) {
+            return redirect()->route('courses.index')->with('error', 'You are not authorized to access this page.');
         }
 
         return $next($request);

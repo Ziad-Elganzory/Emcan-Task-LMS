@@ -49,4 +49,16 @@ class CoursesController extends Controller
         $id->delete();
         return to_route('courses.index');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $courses = Course::where('id', $query)
+                        ->orWhere('title', 'like', '%'.$query.'%')
+                        ->orWhere('description', 'like', '%'.$query.'%')
+                        ->get();
+
+        return view('Courses.search', ['courses' => $courses, 'query' => $query]);
+    }
+
 }

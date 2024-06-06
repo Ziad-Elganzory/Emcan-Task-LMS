@@ -4,9 +4,14 @@
 
 @section('content')
         <div class="text-center">
-          <a href="{{route('courses.create')}}">
-            <button type="button" class="btn btn-success">Add Course</button>
-          </a>
+            @if (Auth::check() && Auth::user()->role ==='admin')
+            <a href="{{route('courses.create')}}">
+                <button type="button" class="btn btn-success">Add Course</button>
+            </a>
+            @else
+
+            @endif
+
         </div>
         <table class="table mt-4">
             <thead>
@@ -24,10 +29,18 @@
                         <td>{{$course->title}}</td>
                         <td>{{$course->description}}</td>
                         <td>
-                          {{-- Enroll Button here --}}
+                          @if (Auth::check() && !$course->isEnrolled(Auth::id()))
+                          <form style="display: inline" action="{{route('courses.enroll', $course->id)}}" method="POST">
+                              @csrf
+                              <button type="submit" class="btn btn-primary btn-md">Enroll</button>
+                          </form>
+                          @else
+                            <button type="button" class="btn btn-outline-secondary" disabled>Enrolled</button>
+                          @endif                          
                           <a href="{{route('courses.show',$course->id)}}">
                             <button type="button" class="btn btn-info">View</button>
                           </a>
+                          @if (Auth::user()->role === 'admin')
                           <a href="{{route('courses.edit',$course->id)}}">
                             <button type="button" class="btn btn-primary">Edit</button>
                           </a>
@@ -36,6 +49,7 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
                           </form>
+                          @endif
                         </td>
                     </tr>
                 @endforeach
