@@ -20,17 +20,18 @@
             <tbody>
                 @foreach ($Courses as $course)
                     <tr>
-                        <th scope="row">{{$course['id']}}</th>
-                        <td>{{$course['Title']}}</td>
-                        <td>{{$course['PostedBy']}}</td>
+                        <th scope="row">{{$course->id}}</th>
+                        <td>{{$course->title}}</td>
+                        <td>{{$course->description}}</td>
                         <td>
-                          <a href="{{route('courses.show',$course['id'])}}">
+                          {{-- Enroll Button here --}}
+                          <a href="{{route('courses.show',$course->id)}}">
                             <button type="button" class="btn btn-info">View</button>
                           </a>
-                          <a href="{{route('courses.edit',$course['id'])}}">
+                          <a href="{{route('courses.edit',$course->id)}}">
                             <button type="button" class="btn btn-primary">Edit</button>
                           </a>
-                          <form style="display: inline" action="{{route('courses.destroy',$course['id'])}}" method="POST">
+                          <form style="display: inline" action="{{route('courses.destroy',$course->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>

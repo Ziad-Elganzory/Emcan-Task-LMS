@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title','Add Course')
+@section('title','Add Lesson')
 
 @section('content')
 
@@ -16,7 +16,7 @@
             <span class="input-group-text">Course Description</span>
             <textarea class="form-control" name="description" aria-label="With textarea"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg mt-5">Submit</button>
+        <button type="submit" class="btn btn-primary btn-lg mt-5">Add Course</button>
     </form>
 </div>
 

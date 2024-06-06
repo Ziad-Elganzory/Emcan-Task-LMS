@@ -8,9 +8,8 @@
               Course Info
             </div>
             <div class="card-body mt-4">
-              <h5 class="card-title">Title: {{$Course['Title']}}</h5>
-              <p class="card-text">Course ID: {{$Course['id']}}</p>
-              <p class="card-text">Course Description: {{$Course['desc']}}</p>
+              <h5 class="card-title">Title: {{$course->title}}</h5>
+              <p class="card-text">Course Description: {{$course->description}}</p>
               <div class="text-center">
                 <a href="{{route('courses.create')}}">
                   <button type="button" class="btn btn-primary btn-lg">Enroll</button>
@@ -25,7 +24,7 @@
             <div class="card-body mt-4">
                 <div class="overflow-y-auto">
                   <div class="text-center">
-                    <a href="{{route('courses.create')}}">
+                    <a href="{{route('lessons.create',$course->id)}}">
                       <button type="button" class="btn btn-success">Add Lesson</button>
                     </a>
                   </div>
@@ -33,17 +32,19 @@
                         <tbody>
                             @foreach ($lessons as $lesson)
                             <tr>
-                                <td class="col-9">{{$lesson}}</td>
+                                <td class="col-9">{{$lesson->title}}</td>
                                 <td>
-                                    <a href="#">
+                                    <a href="{{route('lessons.show',[$course->id,$lesson->id])}}">
                                         <button type="button" class="btn btn-info">View</button>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{route('lessons.edit',[$course->id,$lesson->id])}}">
                                         <button type="button" class="btn btn-primary">Edit</button>
                                     </a>
-                                    <a href="#">
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </a>
+                                    <form style="display: inline" method="POST" action="{{route('lessons.destroy',[$course->id,$lesson->id])}}">
+                                      @csrf
+                                      @method('DELETE')
+                                      <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
                                 </td>
                               </tr>
                             @endforeach

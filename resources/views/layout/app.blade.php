@@ -20,6 +20,9 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{route('courses.index')}}">All Courses</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{route('user.courses')}}">Enrollments</a>
+              </li>
             </ul>
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
